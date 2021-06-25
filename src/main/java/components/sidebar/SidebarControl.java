@@ -1,6 +1,5 @@
 package components.sidebar;
 
-import controllers.SidebarController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
@@ -8,13 +7,19 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 public class SidebarControl extends AnchorPane {
-    SidebarController controller;
 
-    public SidebarControl() throws IOException {
+    public SidebarControl() {
         super();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/sidebar.fxml"));
-        loader.setController(controller);
-        Node n = loader.load();
-        this.getChildren().add(n);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/sidebar.fxml"));
+            Node n = loader.load();
+            setLeftAnchor(n, 0.0);
+            setRightAnchor(n, 0.0);
+            setTopAnchor(n, 0.0);
+            setBottomAnchor(n, 0.0);
+            this.getChildren().add(n);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,6 +1,5 @@
 package components.tracklist;
 
-import controllers.TrackListController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
@@ -8,13 +7,15 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 public class TrackListControl extends AnchorPane {
-    TrackListController controller;
 
-    public TrackListControl() throws IOException {
+    public TrackListControl() {
         super();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/tracklist.fxml"));
-        loader.setController(controller);
-        Node n = loader.load();
-        this.getChildren().add(n);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/tracklist.fxml"));
+            Node n = loader.load();
+            this.getChildren().add(n);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
