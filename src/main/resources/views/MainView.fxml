@@ -9,9 +9,7 @@
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0"
       xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controllers.MainViewController">
-    <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0">
-        <Button layoutX="55.0" layoutY="26.0" mnemonicParsing="false" text="Button" />
-    </AnchorPane>
+    <fx:include fx:id="headerPane" source="header.fxml" />
     <SplitPane dividerPositions="0.5" focusTraversable="true" VBox.vgrow="ALWAYS">
         <fx:include fx:id="sidePane" source="sidebar.fxml" />
         <fx:include fx:id="mainPane" source="tracklist.fxml" />

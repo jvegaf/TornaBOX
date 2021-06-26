@@ -3,17 +3,19 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TrackListController implements Initializable {
+
+    @FXML
+    private TableView songsTableView;
     @FXML
     private TableColumn titleColumn;
     @FXML
     private TableColumn artistColumn;
-    @FXML
-    private TableColumn artColumn;
     @FXML
     private TableColumn albumColumn;
     @FXML
