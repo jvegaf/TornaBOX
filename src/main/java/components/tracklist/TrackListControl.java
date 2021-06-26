@@ -11,7 +11,7 @@ public class TrackListControl extends AnchorPane {
     public TrackListControl() {
         super();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/tracklist.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/tracklist.fxml"));
             Node n = loader.load();
             this.getChildren().add(n);
         } catch (IOException e) {

@@ -6,7 +6,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox minHeight="700.0" minWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainViewController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainViewController">
     <children>
         <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0">
             <children>
@@ -14,12 +14,10 @@
             </children>
         </AnchorPane>
         <SplitPane dividerPositions="0.5" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-            <items>
-                <Pane fx:id="sidePane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="200.0" style="-fx-background-color: #fff;" SplitPane.resizableWithParent="false" />
-                <Pane fx:id="mainPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="784.0" style="-fx-background-color: #fff;" SplitPane.resizableWithParent="false" />
-            </items>
+            <fx:include fx:id="sidePane" source="sidebar.fxml" />
+            <fx:include fx:id="mainPane" source="tracklist.fxml" />
         </SplitPane>
-        <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+        <HBox id="HBox" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" spacing="5.0" VBox.vgrow="NEVER">
             <children>
                 <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
                     <font>

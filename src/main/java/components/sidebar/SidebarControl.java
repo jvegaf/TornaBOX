@@ -11,7 +11,7 @@ public class SidebarControl extends AnchorPane {
     public SidebarControl() {
         super();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/sidebar.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/sidebar.fxml"));
             Node n = loader.load();
             setLeftAnchor(n, 0.0);
             setRightAnchor(n, 0.0);

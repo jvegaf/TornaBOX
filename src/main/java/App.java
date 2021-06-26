@@ -17,6 +17,8 @@ public class App extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MainView.fxml"));
         VBox vBox = loader.load();
         Scene mainScene = new Scene(vBox, 1200, 700);
+        primaryStage.setMinWidth(1200);
+        primaryStage.setMinHeight(700);
         primaryStage.setTitle("TornaBOX");
         primaryStage.setScene(mainScene);
         primaryStage.show();
