@@ -1,5 +1,7 @@
+import controllers.MainViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -15,8 +17,10 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MainView.fxml"));
-        VBox vBox = loader.load();
-        Scene mainScene = new Scene(vBox, 1200, 700);
+        Parent root = loader.load();
+        MainViewController mvController = loader.getController();
+        mvController.injectStage(primaryStage);
+        Scene mainScene = new Scene(root, 1200, 700);
         primaryStage.setMinWidth(1200);
         primaryStage.setMinHeight(700);
         primaryStage.setTitle("TornaBOX");
