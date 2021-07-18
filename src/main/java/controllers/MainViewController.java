@@ -3,18 +3,15 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Track;
 import services.LibraryService;
+import services.PlayerService;
 import services.TagService;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
@@ -28,6 +25,7 @@ public class MainViewController implements Initializable {
 
     private LibraryService libraryService;
     private TagService tagService;
+    private PlayerService playerService;
     private Stage mainStage;
 
     public void injectStage(Stage stage) {
@@ -37,6 +35,7 @@ public class MainViewController implements Initializable {
     public MainViewController() {
         this.libraryService = new LibraryService();
         this.tagService = new TagService();
+        this.playerService = new PlayerService();
     }
 
 
@@ -62,7 +61,7 @@ public class MainViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        headerController.injectMainController(this);
+        headerController.injectDeps(this, this.playerService);
         tracklistController.injectLibraryService(this.libraryService);
     }
 }
