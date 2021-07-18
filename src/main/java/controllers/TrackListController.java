@@ -3,8 +3,10 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import models.Track;
 import services.LibraryService;
 
 import java.net.URL;
@@ -36,5 +38,16 @@ public class TrackListController implements Initializable {
         genreColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
         bpmColumn.setCellValueFactory(new PropertyValueFactory<>("bpm"));
         yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
+
+        songsTableView.setRowFactory(tv -> {
+            TableRow<Track> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    Track rowData = row.getItem();
+                    System.out.println(rowData.getTitle());
+                }
+            });
+            return row;
+        });
     }
 }

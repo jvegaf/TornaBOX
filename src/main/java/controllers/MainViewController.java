@@ -61,7 +61,7 @@ public class MainViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        headerController.injectDeps(this, this.playerService);
+        headerController.injectDeeps(this, this.playerService);
         tracklistController.injectLibraryService(this.libraryService);
     }
 }

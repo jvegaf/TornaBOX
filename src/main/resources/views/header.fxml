@@ -40,7 +40,7 @@
                    <Font size="18.0"/>
                </font>
            </Label>
-           <Slider fx:id="positionSlider" layoutX="10.0" layoutY="51.0" prefHeight="16.0" prefWidth="280.0"/>
+           <Slider fx:id="progressBar" layoutX="10.0" layoutY="51.0" prefHeight="16.0" prefWidth="280.0"/>
        </AnchorPane>
    </center>
    <right>
