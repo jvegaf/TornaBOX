@@ -6,18 +6,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.javafx.StackedFontIcon;
 import services.PlayerService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HeaderController implements Initializable {
+
     @FXML
-    private ImageView nextImgView;
+    private FontIcon prevIcon;
     @FXML
-    private ImageView playImgView;
+    private FontIcon playIcon;
     @FXML
-    private ImageView previousImgView;
+    private FontIcon nextIcon;
     @FXML
     private Label artistLabel;
     @FXML
@@ -50,9 +53,9 @@ public class HeaderController implements Initializable {
     }
 
     private void initActionBtns() {
-        nextImgView.setOnMouseClicked(event -> System.out.println("next clicked !"));
-        playImgView.setOnMouseClicked(event -> togglePlayPause());
-        previousImgView.setOnMouseClicked(event -> System.out.println("previous clicked !"));
+        nextIcon.setOnMouseClicked(event -> System.out.println("next clicked !"));
+        playIcon.setOnMouseClicked(event -> togglePlayPause());
+        prevIcon.setOnMouseClicked(event -> System.out.println("previous clicked !"));
         openFolderBtn.setOnMouseClicked(event -> this.mainViewController.onOpenFolder());
     }
 
