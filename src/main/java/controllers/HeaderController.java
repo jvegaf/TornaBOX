@@ -29,6 +29,7 @@ public class HeaderController implements Initializable {
 
     private MainViewController mainViewController;
     private PlayerService playerService;
+    private Double trackDuration;
 
     public void injectDeeps(MainViewController mvController, PlayerService playerService) {
         this.mainViewController = mvController;
@@ -56,13 +57,19 @@ public class HeaderController implements Initializable {
     }
 
     private void togglePlayPause() {
-        if (this.playerService.isPaused) this.playerService.continuePlaying();
+        if (this.playerService.isPlayingProperty.getValue()) {
+            if (this.playerService.isPausedProperty.getValue()) {
+                this.playerService.continuePlaying();
+            } else {
+                this.playerService.pauseTrack();
+            }
+        }
     }
 
     private void initListeners() {
         this.playerService.titleProperty.addListener((observable, oldValue, newValue) -> this.titleLabel.setText(newValue));
         this.playerService.artistProperty.addListener((observable, oldValue, newValue) -> this.artistLabel.setText(newValue));
-        this.playerService.currentPlayTimeProperty.addListener((observable, oldValue, newValue) -> this.progressBar.setValue((newValue.toSeconds() / this.playerService.durationInSeconds) * 100));
+        this.playerService.totalDuration.addListener((observable, oldValue, newValue) -> this.trackDuration = newValue.toSeconds());
         this.playerService.isPlayingProperty.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 initDisplayControls();
@@ -74,6 +81,12 @@ public class HeaderController implements Initializable {
         artistLabel.setVisible(true);
         titleLabel.setVisible(true);
         progressBar.setVisible(true);
+        initProgressBar();
+    }
+
+    private void initProgressBar() {
+        this.playerService.currentPlayTimeProperty.addListener((observable, oldValue, newValue) -> this.progressBar.setValue((newValue.toSeconds() / this.trackDuration) * 100));
+        this.progressBar.setOnMouseClicked(event -> this.playerService.seekTo((this.progressBar.getValue() / 100) * this.trackDuration));
     }
 
 }

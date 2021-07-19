@@ -23,9 +23,11 @@ public class TrackListController implements Initializable {
     @FXML private TableColumn yearColumn;
     @FXML private TableColumn filenameColumn;
 
+    private MainViewController mvController;
     private LibraryService libraryService;
 
-    public void injectLibraryService(LibraryService libService) {
+    public void injectDeeps(MainViewController mainViewController, LibraryService libService) {
+        this.mvController = mainViewController;
         this.libraryService = libService;
         songsTableView.setItems(this.libraryService.getTracks());
     }
@@ -43,8 +45,8 @@ public class TrackListController implements Initializable {
             TableRow<Track> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    Track rowData = row.getItem();
-                    System.out.println(rowData.getTitle());
+                    Track t = row.getItem();
+                    mvController.playTrackAction(t);
                 }
             });
             return row;

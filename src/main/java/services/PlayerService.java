@@ -15,31 +15,38 @@ public class PlayerService {
     public StringProperty titleProperty;
     public StringProperty artistProperty;
     public ObjectProperty<Duration> currentPlayTimeProperty;
-    public Double durationInSeconds;
-    public Boolean isPaused = false;
+    public ObjectProperty<Duration> totalDuration;
+    public BooleanProperty isPausedProperty;
 
     public PlayerService() {
         this.isPlayingProperty = new SimpleBooleanProperty(false);
         this.titleProperty = new SimpleStringProperty("");
         this.artistProperty = new SimpleStringProperty("");
         this.currentPlayTimeProperty = new SimpleObjectProperty<>();
+        this.totalDuration = new SimpleObjectProperty<>();
+        this.isPausedProperty = new SimpleBooleanProperty(false);
     }
 
     public void playTrack(Track track) {
         String filepath = track.getPath();
         if (!ensureIsDifferentFile(filepath)) return;
+        if (this.isPlayingProperty.getValue()) {
+            this.mPlayer.stop();
+        }
         this.path = track.getPath();
         Media media = new Media(new File(filepath).toURI().toString());
         this.mPlayer = new MediaPlayer(media);
         this.mPlayer.play();
         this.isPlayingProperty.setValue(true);
-        this.durationInSeconds = this.mPlayer.getTotalDuration().toSeconds();
+        this.titleProperty.setValue(track.getTitle());
+        this.artistProperty.setValue(track.getArtist());
+        this.totalDuration.bind(this.mPlayer.totalDurationProperty());
         this.currentPlayTimeProperty.bind(this.mPlayer.currentTimeProperty());
     }
 
     public void pauseTrack() {
         this.mPlayer.pause();
-        this.isPaused = true;
+        this.isPausedProperty.setValue(true);
     }
 
     private boolean ensureIsDifferentFile(String filepath) {
@@ -48,5 +55,10 @@ public class PlayerService {
 
     public void continuePlaying() {
         this.mPlayer.play();
+        this.isPausedProperty.setValue(false);
+    }
+
+    public void seekTo(double value) {
+        this.mPlayer.seek(Duration.seconds(value));
     }
 }

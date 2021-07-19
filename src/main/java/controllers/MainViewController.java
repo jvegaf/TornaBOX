@@ -46,12 +46,7 @@ public class MainViewController implements Initializable {
     }
 
     private void processFiles(File folderPath) {
-        File[] fileList = folderPath.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".mp3");
-            }
-        });
+        File[] fileList = folderPath.listFiles((dir, name) -> name.endsWith(".mp3"));
         if(fileList == null) return;
         for (File file : fileList) {
             Track t = this.tagService.createTrackFromFile(file);
@@ -62,6 +57,15 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         headerController.injectDeeps(this, this.playerService);
-        tracklistController.injectLibraryService(this.libraryService);
+        tracklistController.injectDeeps(this, this.libraryService);
+        autoloadTracks();
+    }
+
+    private void autoloadTracks() {
+        processFiles(new File("/home/jose/Music/000000-PARA COLOCAR/CANELITA-PA-COLOCAR"));
+    }
+
+    public void playTrackAction(Track t) {
+        this.playerService.playTrack(t);
     }
 }
