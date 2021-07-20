@@ -10,18 +10,17 @@ import services.PlayerService;
 import services.TagService;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
 
     @FXML
-    private HeaderController headerController;
+    protected HeaderController headerController;
     @FXML
-    private SidebarController sidebarController;
+    protected SidebarController sidebarController;
     @FXML
-    private TrackListController tracklistController;
+    protected TrackListController tracklistController;
 
     private LibraryService libraryService;
     private TagService tagService;
@@ -62,7 +61,7 @@ public class MainViewController implements Initializable {
     }
 
     private void autoloadTracks() {
-        processFiles(new File("/home/jose/Music/000000-PARA COLOCAR/CANELITA-PA-COLOCAR"));
+        processFiles(new File("/home/jose/Music/CANELITA-PA-COLOCAR"));
     }
 
     public void playTrackAction(Track t) {

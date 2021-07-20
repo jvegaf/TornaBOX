@@ -5,9 +5,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaPlayer;
 import org.kordamp.ikonli.javafx.FontIcon;
-import org.kordamp.ikonli.javafx.StackedFontIcon;
 import services.PlayerService;
 
 import java.net.URL;
@@ -15,6 +14,8 @@ import java.util.ResourceBundle;
 
 public class HeaderController implements Initializable {
 
+    @FXML
+    private FontIcon pauseIcon;
     @FXML
     private FontIcon prevIcon;
     @FXML
@@ -54,28 +55,26 @@ public class HeaderController implements Initializable {
 
     private void initActionBtns() {
         nextIcon.setOnMouseClicked(event -> System.out.println("next clicked !"));
-        playIcon.setOnMouseClicked(event -> togglePlayPause());
+        playIcon.setOnMouseClicked(event -> this.playerService.continuePlaying());
+        pauseIcon.setOnMouseClicked(event -> this.playerService.pauseTrack());
         prevIcon.setOnMouseClicked(event -> System.out.println("previous clicked !"));
         openFolderBtn.setOnMouseClicked(event -> this.mainViewController.onOpenFolder());
     }
 
-    private void togglePlayPause() {
-        if (this.playerService.isPlayingProperty.getValue()) {
-            if (this.playerService.isPausedProperty.getValue()) {
-                this.playerService.continuePlaying();
-            } else {
-                this.playerService.pauseTrack();
-            }
-        }
-    }
 
     private void initListeners() {
         this.playerService.titleProperty.addListener((observable, oldValue, newValue) -> this.titleLabel.setText(newValue));
         this.playerService.artistProperty.addListener((observable, oldValue, newValue) -> this.artistLabel.setText(newValue));
         this.playerService.totalDuration.addListener((observable, oldValue, newValue) -> this.trackDuration = newValue.toSeconds());
-        this.playerService.isPlayingProperty.addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
+        this.playerService.statusProperty.addListener((observable, oldValue, newValue) -> {
+            if (newValue == MediaPlayer.Status.PLAYING) {
                 initDisplayControls();
+                playIcon.setVisible(false);
+                pauseIcon.setVisible(true);
+            }
+            if (newValue == MediaPlayer.Status.PAUSED){
+                playIcon.setVisible(true);
+                pauseIcon.setVisible(false);
             }
         });
     }
