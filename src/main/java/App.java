@@ -20,7 +20,7 @@ public class App extends Application {
         MainViewController mvController = loader.getController();
         mvController.injectStage(primaryStage);
         Scene mainScene = new Scene(root, 1200, 700);
-//        mainScene.getStylesheets().add("style.css");
+        mainScene.getStylesheets().add("nigth.css");
         primaryStage.setMinWidth(1200);
         primaryStage.setMinHeight(700);
         primaryStage.setTitle("TornaBOX");
