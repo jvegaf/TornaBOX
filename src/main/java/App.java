@@ -15,7 +15,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MainView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/main.fxml"));
         Parent root = loader.load();
         MainViewController mvController = loader.getController();
         mvController.injectStage(primaryStage);
