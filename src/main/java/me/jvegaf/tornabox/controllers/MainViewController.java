@@ -34,13 +34,23 @@ public class MainViewController {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     File selectedFolder = directoryChooser.showDialog(this.leftStatusLabel.getScene().getWindow());
     if (selectedFolder == null) return;
+    System.out.println(selectedFolder.getAbsolutePath());
     ArrayList<Track> tracks = this.parent.getMusicFileService().processMusicFilesOfPath(selectedFolder);
     this.parent.getLibraryService().addTracks(tracks);
   }
 
 
   private void autoloadTracks() {
-    this.parent.getLibraryService().addTracks(this.parent.getMusicFileService().processMusicFilesOfPath(new File("/home/jose/Music/CANELITA-PA-COLOCAR")));
+    String pathname = getPath();
+    this.parent.getLibraryService().addTracks(this.parent.getMusicFileService().processMusicFilesOfPath(new File(pathname)));
+  }
+
+  private String getPath() {
+
+    String osname = System.getProperty("os.name");
+    System.out.println(osname);
+    if(osname.toLowerCase().contains("win")) return "C:\\Users\\josev\\Desktop\\CANELITA-PA-COLOCAR";
+    return "/home/jose/Music/CANELITA-PA-COLOCAR";
   }
 
   public void playTrackAction(Track t) {

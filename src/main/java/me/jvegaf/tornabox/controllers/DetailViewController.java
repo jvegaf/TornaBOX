@@ -46,7 +46,7 @@ public class DetailViewController {
     this.artistTextField.setText(this.track.getArtist());
     this.albumTextField.setText(this.track.getAlbum());
     this.genreTextField.setText(this.track.getGenre());
-    this.yearTextField.setText(this.track.getYear().toString());
+//    this.yearTextField.setText(this.track.getYear().toString());
     this.bpmTextField.setText(String.valueOf(this.track.getBpm()));
     this.keyTextField.setText(this.track.getKey());
     this.commentsTextField.setText(this.track.getComments());
