@@ -1,4 +1,4 @@
-package controllers;
+package me.jvegaf.tornabox.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

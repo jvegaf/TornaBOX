@@ -1,4 +1,4 @@
-package controllers;
+package me.jvegaf.tornabox.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.media.MediaPlayer;
 import org.kordamp.ikonli.javafx.FontIcon;
-import services.PlayerService;
+import me.jvegaf.tornabox.services.PlayerService;
 
 import java.net.URL;
 import java.util.ResourceBundle;

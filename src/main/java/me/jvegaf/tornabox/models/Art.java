@@ -1,4 +1,4 @@
-package models;
+package me.jvegaf.tornabox.models;
 
 public final class Art {
   private final byte[] data;

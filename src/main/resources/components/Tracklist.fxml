@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="Tracklist" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TrackListController">
+<fx:root xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.layout.AnchorPane">
     <children>
         <TableView fx:id="songsTableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columns>
@@ -13,8 +13,7 @@
                 <TableColumn fx:id="genreColumn" prefWidth="142.0" text="Genre" />
                 <TableColumn fx:id="bpmColumn" prefWidth="76.0" text="BPM" />
                 <TableColumn fx:id="yearColumn" prefWidth="88.0" text="Year" />
-                <TableColumn fx:id="filenameColumn" text="Filename" />
             </columns>
         </TableView>
     </children>
-</AnchorPane>
+</fx:root>

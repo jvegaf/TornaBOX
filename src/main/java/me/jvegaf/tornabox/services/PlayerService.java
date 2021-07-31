@@ -1,10 +1,10 @@
-package services;
+package me.jvegaf.tornabox.services;
 
 import javafx.beans.property.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-import models.Track;
+import me.jvegaf.tornabox.models.Track;
 
 import java.io.File;
 
