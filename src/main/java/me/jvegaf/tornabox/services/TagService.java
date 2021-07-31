@@ -38,18 +38,6 @@ public class TagService {
     return generateTrack();
   }
 
-  public Track createTrackFromFilePath(String path) {
-    file = new File(path);
-    try {
-      f = (MP3File) AudioFileIO.read(file);
-      tag = f.getID3v2Tag();
-    } catch (CannotReadException | IOException | TagException | ReadOnlyFileException
-            | InvalidAudioFrameException e) {
-      e.printStackTrace();
-    }
-    return generateTrack();
-  }
-
   private Track generateTrack() {
     if (!this.f.hasID3v2Tag()) return new Track(this.file.getAbsolutePath());
 
