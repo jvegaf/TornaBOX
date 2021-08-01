@@ -94,16 +94,18 @@ public final class Track {
     return year;
   }
 
-  public void setYear(Year year) {
-    this.year = year;
+  public void setYear(String sYear) {
+    if (sYear.length() < 4) return;
+    this.year = Year.parse(sYear);
   }
 
   public Integer getBpm() {
     return bpm;
   }
 
-  public void setBpm(Integer bpm) {
-    this.bpm = bpm;
+  public void setBpm(String sBpm) {
+    if (sBpm.length() < 1) return;
+    this.bpm = Integer.valueOf(sBpm);
   }
 
   public String getPath() {

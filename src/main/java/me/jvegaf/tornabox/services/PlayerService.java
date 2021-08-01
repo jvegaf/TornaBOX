@@ -28,7 +28,7 @@ public class PlayerService {
     public void playTrack(Track track) {
         String filepath = track.getPath();
         if (!ensureIsDifferentFile(filepath)) return;
-        if (this.mPlayer != null) this.mPlayer.stop();
+        if (this.mPlayer != null) this.mPlayer.dispose();
         this.path = track.getPath();
         Media media = new Media(new File(filepath).toURI().toString());
         this.mPlayer = new MediaPlayer(media);
@@ -54,5 +54,10 @@ public class PlayerService {
 
     public void seekTo(double value) {
         this.mPlayer.seek(Duration.seconds(value));
+    }
+
+    public void stopTrack() {
+        this.mPlayer.dispose();
+        this.mPlayer = null;
     }
 }

@@ -88,7 +88,11 @@ public class HeaderController implements Initializable {
 
     private void initProgressBar() {
         this.playerService.currentPlayTimeProperty.addListener((observable, oldValue, newValue) -> this.progressBar.setValue((newValue.toSeconds() / this.trackDuration) * 100));
-        this.progressBar.setOnMouseClicked(event -> this.playerService.seekTo((this.progressBar.getValue() / 100) * this.trackDuration));
+        this.progressBar.valueProperty().addListener(observable -> {
+            if (this.progressBar.isValueChanging()){
+                this.playerService.seekTo((this.progressBar.getValue() / 100) * this.trackDuration);
+            }
+        });
     }
 
 }

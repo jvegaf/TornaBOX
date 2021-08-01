@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import me.jvegaf.tornabox.App;
 import me.jvegaf.tornabox.models.Track;
 
 import java.io.ByteArrayInputStream;
@@ -14,6 +15,7 @@ import java.io.ByteArrayInputStream;
 public class DetailViewController {
 
     private Track track;
+    private final App parent;
     @FXML
     private ImageView artworkImageView;
     @FXML
@@ -37,21 +39,33 @@ public class DetailViewController {
     @FXML
     private Button cancelBtn;
 
-    public void initialize() {
-        this.cancelBtn.setOnMouseClicked(event -> OnCancelListener());
-        this.saveBtn.setDisable(true);
+
+    public DetailViewController(App parent) {
+        this.parent = parent;
     }
 
-    private void OnCancelListener() {
+    private void closeAction() {
         Stage stage = (Stage) this.cancelBtn.getScene().getWindow();
         stage.close();
     }
-    
-    private void enableSaveBtn() {
-        this.saveBtn.setDisable(false);
+
+    private void onSaveListener() {
+        this.track.setTitle(this.titleTextField.getText());
+        this.track.setArtist(this.artistTextField.getText());
+        this.track.setAlbum(this.albumTextField.getText());
+        this.track.setGenre(this.genreTextField.getText());
+        this.track.setYear(this.yearTextField.getText());
+        this.track.setBpm(this.bpmTextField.getText());
+        this.track.setKey(this.keyTextField.getText());
+        this.track.setComments(this.commentsTextField.getText());
+        // TODO: implement this.track.setArtworkData
+        this.parent.saveTags(this.track);
+        this.closeAction();
     }
 
-    private void initControlsData(Track t) {
+    private void initControls(Track t) {
+        this.cancelBtn.setOnMouseClicked(event -> closeAction());
+        this.saveBtn.setOnMouseClicked(event -> onSaveListener());
         this.titleTextField.setText(t.getTitle());
         this.artistTextField.setText(t.getArtist());
         this.albumTextField.setText(t.getAlbum());
@@ -68,23 +82,10 @@ public class DetailViewController {
         }
 
         this.artworkImageView.setImage(new Image(new ByteArrayInputStream(t.getArtworkData())));
-        setListeners();
     }
 
     public void setTrack(Track track) {
         this.track = track;
-        initialize();
-        initControlsData(track);
-    }
-
-    private void setListeners() {
-        this.titleTextField.textProperty().addListener((observable, oldValue, newValue) -> enableSaveBtn());
-        this.artistTextField.textProperty().addListener((observable, oldValue, newValue) -> enableSaveBtn());
-        this.albumTextField.textProperty().addListener((observable, oldValue, newValue) -> enableSaveBtn());
-        this.genreTextField.textProperty().addListener((observable, oldValue, newValue) -> enableSaveBtn());
-        this.yearTextField.textProperty().addListener((observable, oldValue, newValue) -> enableSaveBtn());
-        this.bpmTextField.textProperty().addListener((observable, oldValue, newValue) -> enableSaveBtn());
-        this.commentsTextField.textProperty().addListener((observable, oldValue, newValue) -> enableSaveBtn());
-        this.keyTextField.textProperty().addListener((observable, oldValue, newValue) -> enableSaveBtn());
+        initControls(track);
     }
 }

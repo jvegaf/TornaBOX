@@ -17,11 +17,12 @@ public class LibraryService {
         return tracks;
     }
 
-    public void addTrack(Track track) {
-        this.tracks.add(track);
-    }
-
     public void addTracks(ArrayList<Track> tracks) {
         this.tracks.addAll(tracks);
+    }
+
+    public void updateTrack(Track t) {
+        int idx = this.tracks.indexOf(t);
+        this.tracks.set(idx, t);
     }
 }

@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import me.jvegaf.tornabox.App;
 import me.jvegaf.tornabox.components.Tracklist;
@@ -63,7 +64,7 @@ public class MainViewController {
   }
 
   public void onViewDetailActionListener(Track t) {
-    DetailViewController detailViewController = new DetailViewController();
+    DetailViewController detailViewController = new DetailViewController(this.parent);
     Stage detailStage = new Stage();
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/DetailView.fxml"));
     loader.setController(detailViewController);
@@ -74,12 +75,14 @@ public class MainViewController {
       e.printStackTrace();
     }
     if (root == null) return;
+    this.parent.getPlayerService().stopTrack();
     Scene detailScene = new Scene(root, 563, 512);
     detailScene.getStylesheets().add("/styles/dark.css");
+    detailViewController.setTrack(t);
     detailStage.setTitle("Song Detail");
     detailStage.setScene(detailScene);
     detailStage.initOwner(this.leftStatusLabel.getScene().getWindow());
-    detailViewController.setTrack(t);
+    detailStage.initModality(Modality.APPLICATION_MODAL);
     detailStage.show();
   }
 

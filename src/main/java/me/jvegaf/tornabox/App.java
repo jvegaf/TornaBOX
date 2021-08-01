@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import me.jvegaf.tornabox.controllers.MainViewController;
+import me.jvegaf.tornabox.models.Track;
 import me.jvegaf.tornabox.services.LibraryService;
 import me.jvegaf.tornabox.services.MusicFileService;
 import me.jvegaf.tornabox.services.PlayerService;
@@ -64,4 +65,9 @@ public class App extends Application {
     public PlayerService getPlayerService() { return this.playerService; }
 
     public MusicFileService getMusicFileService() { return this.musicFileService; }
+
+    public void saveTags(Track t) {
+        this.tagService.saveTags(t);
+        this.libraryService.updateTrack(t);
+    }
 }
