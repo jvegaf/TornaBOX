@@ -9,6 +9,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import me.jvegaf.tornabox.App;
+import me.jvegaf.tornabox.components.SideBar;
 import me.jvegaf.tornabox.components.Tracklist;
 import me.jvegaf.tornabox.models.Track;
 
@@ -21,7 +22,7 @@ public class MainViewController {
   private App parent;
 
   @FXML HeaderController headerController;
-  @FXML SidebarController sidebarController;
+  @FXML SideBar sidebar;
   @FXML Tracklist tracklist;
   @FXML Label leftStatusLabel;
 
@@ -30,8 +31,8 @@ public class MainViewController {
   }
 
   public void initialize() {
-    this.tracklist.setMainViewController(this);
-    this.tracklist.setLibraryService(this.parent.getLibraryService());
+    this.tracklist.injectDeeps(this, this.parent.getLibraryService());
+    this.sidebar.injectDeeps(this, this.parent.getLibraryService());
     this.headerController.injectDeeps(this, this.parent.getPlayerService());
     autoloadTracks();
   }

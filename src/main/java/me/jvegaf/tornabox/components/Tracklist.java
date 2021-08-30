@@ -39,15 +39,10 @@ public class Tracklist extends AnchorPane {
         }
     }
 
-    public void setLibraryService(LibraryService service) {
-        this.libraryService = service;
+    public void injectDeeps(MainViewController mvController, LibraryService libService) {
+        this.mvController = mvController;
+        this.libraryService = libService;
         this.songsTableView.setItems(this.libraryService.getTracks());
-    }
-
-
-    
-    public void setMainViewController(MainViewController mainViewController) {
-        this.mvController = mainViewController;
     }
 
     public void initialize() {
