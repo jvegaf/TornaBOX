@@ -76,7 +76,6 @@ public class MainViewController {
       e.printStackTrace();
     }
     if (root == null) return;
-    this.parent.getPlayerService().stopTrack();
     Scene detailScene = new Scene(root, 563, 512);
     detailScene.getStylesheets().add("/styles/dark.css");
     detailViewController.setTrack(t);
