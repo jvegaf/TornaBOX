@@ -49,7 +49,13 @@ public class HeaderController implements Initializable {
     private void downDisplayControls() {
         progressBar.setVisible(false);
         pauseBtn.setVisible(false);
-        playBtn.setDisable(true);
+        disablePlayerControls(true);
+    }
+
+    private void disablePlayerControls(boolean value) {
+        playBtn.setDisable(value);
+        prevBtn.setDisable(value);
+        nextBtn.setDisable(value);
     }
 
     private void initActionBtns() {
@@ -86,10 +92,10 @@ public class HeaderController implements Initializable {
         switch (status){
             case UNKNOWN:
                 System.out.println("UNKNOWN STATE");
-                playBtn.setDisable(true);
+                disablePlayerControls( true);
                 break;
             case READY:
-                playBtn.setDisable(false);
+                disablePlayerControls(false);
                 initDisplayControls();
                 break;
             case PAUSED:
