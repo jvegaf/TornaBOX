@@ -51,7 +51,7 @@ public class HeaderController implements Initializable {
         titleLabel.setVisible(false);
         progressBar.setVisible(false);
         pauseBtn.setVisible(false);
-        playBtn.disableProperty().bind();
+        playBtn.setDisable(true);
     }
 
     private void initActionBtns() {
@@ -67,17 +67,7 @@ public class HeaderController implements Initializable {
         this.playerService.titleProperty.addListener((observable, oldValue, newValue) -> this.titleLabel.setText(newValue));
         this.playerService.artistProperty.addListener((observable, oldValue, newValue) -> this.artistLabel.setText(newValue));
         this.playerService.totalDuration.addListener((observable, oldValue, newValue) -> this.trackDuration = newValue.toSeconds());
-        this.playerService.statusProperty.addListener((observable, oldValue, newValue) -> {
-            if (newValue == MediaPlayer.Status.PLAYING) {
-                initDisplayControls();
-                playBtn.setVisible(false);
-                pauseBtn.setVisible(true);
-            }
-            if (newValue == MediaPlayer.Status.PAUSED){
-                playBtn.setVisible(true);
-                pauseBtn.setVisible(false);
-            }
-        });
+        this.playerService.statusProperty.addListener((observable, oldValue, newValue) -> playerStatusHandler(newValue));
     }
 
     private void initDisplayControls() {
@@ -88,14 +78,36 @@ public class HeaderController implements Initializable {
     }
 
     private void initProgressBar() {
-        this.progressBar.
-
         this.playerService.currentPlayTimeProperty.addListener((observable, oldValue, newValue) -> this.progressBar.setValue((newValue.toSeconds() / this.trackDuration) * 100));
         this.progressBar.valueProperty().addListener(observable -> {
             if (this.progressBar.isValueChanging()){
                 this.playerService.seekTo((this.progressBar.getValue() / 100) * this.trackDuration);
             }
         });
+    }
+
+    private void playerStatusHandler(MediaPlayer.Status status){
+        switch (status){
+            case UNKNOWN:
+                System.out.println("UNKNOWN STATE");
+                playBtn.setDisable(true);
+                break;
+            case READY:
+                playBtn.setDisable(false);
+                initDisplayControls();
+                break;
+            case PAUSED:
+            case STOPPED:
+                playBtn.setVisible(true);
+                pauseBtn.setVisible(false);
+                break;
+            case PLAYING:
+                playBtn.setVisible(false);
+                pauseBtn.setVisible(true);
+                break;
+            default:
+                break;
+        }
     }
 
 }
