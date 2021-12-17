@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.media.MediaPlayer;
-import org.kordamp.ikonli.javafx.FontIcon;
 import me.jvegaf.tornabox.services.PlayerService;
 
 import java.net.URL;
@@ -15,13 +14,13 @@ import java.util.ResourceBundle;
 public class HeaderController implements Initializable {
 
     @FXML
-    private FontIcon pauseIcon;
+    private Button pauseBtn;
     @FXML
-    private FontIcon prevIcon;
+    private Button prevBtn;
     @FXML
-    private FontIcon playIcon;
+    private Button playBtn;
     @FXML
-    private FontIcon nextIcon;
+    private Button nextBtn;
     @FXML
     private Label artistLabel;
     @FXML
@@ -51,13 +50,15 @@ public class HeaderController implements Initializable {
         artistLabel.setVisible(false);
         titleLabel.setVisible(false);
         progressBar.setVisible(false);
+        pauseBtn.setVisible(false);
+        playBtn.disableProperty().bind();
     }
 
     private void initActionBtns() {
-        nextIcon.setOnMouseClicked(event -> System.out.println("next clicked !"));
-        playIcon.setOnMouseClicked(event -> this.playerService.continuePlaying());
-        pauseIcon.setOnMouseClicked(event -> this.playerService.pauseTrack());
-        prevIcon.setOnMouseClicked(event -> System.out.println("previous clicked !"));
+        nextBtn.setOnMouseClicked(event -> System.out.println("next clicked !"));
+        playBtn.setOnMouseClicked(event -> this.playerService.continuePlaying());
+        pauseBtn.setOnMouseClicked(event -> this.playerService.pauseTrack());
+        prevBtn.setOnMouseClicked(event -> System.out.println("previous clicked !"));
         openFolderBtn.setOnMouseClicked(event -> this.mainViewController.onOpenFolder());
     }
 
@@ -69,12 +70,12 @@ public class HeaderController implements Initializable {
         this.playerService.statusProperty.addListener((observable, oldValue, newValue) -> {
             if (newValue == MediaPlayer.Status.PLAYING) {
                 initDisplayControls();
-                playIcon.setVisible(false);
-                pauseIcon.setVisible(true);
+                playBtn.setVisible(false);
+                pauseBtn.setVisible(true);
             }
             if (newValue == MediaPlayer.Status.PAUSED){
-                playIcon.setVisible(true);
-                pauseIcon.setVisible(false);
+                playBtn.setVisible(true);
+                pauseBtn.setVisible(false);
             }
         });
     }
@@ -87,6 +88,8 @@ public class HeaderController implements Initializable {
     }
 
     private void initProgressBar() {
+        this.progressBar.
+
         this.playerService.currentPlayTimeProperty.addListener((observable, oldValue, newValue) -> this.progressBar.setValue((newValue.toSeconds() / this.trackDuration) * 100));
         this.progressBar.valueProperty().addListener(observable -> {
             if (this.progressBar.isValueChanging()){

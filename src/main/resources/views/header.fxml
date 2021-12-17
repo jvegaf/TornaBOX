@@ -4,9 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-<?import org.kordamp.ikonli.javafx.*?>
 
-<BorderPane minWidth="-Infinity" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.jvegaf.tornabox.controllers.HeaderController">
+<BorderPane minWidth="-Infinity" prefWidth="1200.0" stylesheets="@../styles/dark.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.jvegaf.tornabox.controllers.HeaderController">
    <center>
       <AnchorPane minWidth="-Infinity" prefWidth="1200.0">
          <children>
@@ -24,13 +23,12 @@
       </AnchorPane>
    </center>
    <left>
-        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="300.0" BorderPane.alignment="CENTER">
-            <FontIcon fx:id="prevIcon" iconColor="#D1CECE" iconLiteral="fi-rewind" iconSize="32" layoutX="25.0" AnchorPane.bottomAnchor="19.0" AnchorPane.topAnchor="19.0" />
-            <FontIcon fx:id="playIcon" iconColor="#D1CECE" iconLiteral="fi-play" iconSize="42" layoutX="78.0" scaleX="1.2" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="14.0" />
-            <FontIcon fx:id="pauseIcon" iconColor="#D1CECE" iconLiteral="fi-pause" iconSize="42" layoutX="78.0" scaleX="1.2" visible="false" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="14.0" />
-            <FontIcon fx:id="nextIcon" iconColor="#D1CECE" iconLiteral="fi-fast-forward" iconSize="32" layoutX="127.0" AnchorPane.bottomAnchor="19.0" AnchorPane.topAnchor="19.0" />
-
-                    </AnchorPane>
+       <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+           <Button fx:id="prevBtn" layoutX="35.0" layoutY="23.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="24.0" styleClass="prev-btn" />
+           <Button fx:id="playBtn" layoutX="79.0" layoutY="18.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="play-btn" />
+           <Button fx:id="pauseBtn" layoutX="79.0" layoutY="18.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="pause-btn" />
+           <Button fx:id="nextBtn" layoutX="130.0" layoutY="23.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="24.0" styleClass="next-btn" />
+       </AnchorPane>
    </left>
    <right>
         <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="300.0" BorderPane.alignment="CENTER">

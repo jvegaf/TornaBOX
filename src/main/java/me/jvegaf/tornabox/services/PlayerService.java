@@ -1,6 +1,7 @@
 package me.jvegaf.tornabox.services;
 
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -13,15 +14,17 @@ public class PlayerService {
     private MediaPlayer mPlayer;
     public StringProperty titleProperty;
     public StringProperty artistProperty;
-    public ObjectProperty<Duration> currentPlayTimeProperty;
+    public ObjectProperty<Double> currentPlayTimeProperty;
     public ObjectProperty<Duration> totalDuration;
     public ObjectProperty<MediaPlayer.Status> statusProperty;
+    private ObjectProperty<Duration> currentTimeProperty;
 
     public PlayerService() {
         this.titleProperty = new SimpleStringProperty("");
         this.artistProperty = new SimpleStringProperty("");
         this.currentPlayTimeProperty = new SimpleObjectProperty<>();
         this.totalDuration = new SimpleObjectProperty<>();
+        this.currentTimeProperty = new SimpleObjectProperty<>();
         this.statusProperty = new SimpleObjectProperty<>();
     }
 
@@ -37,7 +40,9 @@ public class PlayerService {
         this.titleProperty.setValue(track.getTitle());
         this.artistProperty.setValue(track.getArtist());
         this.totalDuration.bind(this.mPlayer.totalDurationProperty());
-        this.currentPlayTimeProperty.bind(this.mPlayer.currentTimeProperty());
+        this.currentTimeProperty.bind(this.mPlayer.currentTimeProperty());
+        this.currentPlayTimeProperty.bind((ObservableValue<? extends Double>) this.currentTimeProperty.get().multiply(1000));
+        this.currentPlayTimeProperty.addListener((observable, oldValue, newValue) -> this.mPlayer.seek(Duration.seconds(newValue)));
     }
 
     public void pauseTrack() {
@@ -50,10 +55,6 @@ public class PlayerService {
 
     public void continuePlaying() {
         if (this.mPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)) this.mPlayer.play();
-    }
-
-    public void seekTo(double value) {
-        this.mPlayer.seek(Duration.seconds(value));
     }
 
     public void stopTrack() {

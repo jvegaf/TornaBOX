@@ -37,7 +37,7 @@ public class SideBar extends VBox {
     }
 
     public void initialize() {
-        libraryListView.getItems().add(new CellItem("Music", "fi-music"));
+        libraryListView.getItems().add(new CellItem("Music"));
         libraryListView.setCellFactory(itemListView -> new SideBarItemCell());
     }
 

@@ -1,5 +1,6 @@
 package me.jvegaf.tornabox;
 
+import fr.brouillard.oss.cssfx.CSSFX;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,6 +31,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage){
+        CSSFX.start();
         initServices();
         this.mainViewController = new MainViewController(this);
         FXMLLoader loader = new FXMLLoader();
