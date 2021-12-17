@@ -47,8 +47,6 @@ public class HeaderController implements Initializable {
     }
 
     private void downDisplayControls() {
-        artistLabel.setVisible(false);
-        titleLabel.setVisible(false);
         progressBar.setVisible(false);
         pauseBtn.setVisible(false);
         playBtn.setDisable(true);
@@ -71,8 +69,6 @@ public class HeaderController implements Initializable {
     }
 
     private void initDisplayControls() {
-        artistLabel.setVisible(true);
-        titleLabel.setVisible(true);
         progressBar.setVisible(true);
         initProgressBar();
     }
