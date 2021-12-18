@@ -1,15 +1,16 @@
 package me.jvegaf.tornabox.services;
 
 import me.jvegaf.tornabox.models.TagDTO;
+import me.jvegaf.tornabox.services.tagger.SpotifyTagger;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SpotifyFinderTest {
+class SpotifyTaggerTest {
 
-    private final SpotifyFinder finder = new SpotifyFinder();
+    private final SpotifyTagger finder = new SpotifyTagger();
 
     @Test
     void findWithArtistAndTitle() {

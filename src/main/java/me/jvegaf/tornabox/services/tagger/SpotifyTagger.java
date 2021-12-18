@@ -1,4 +1,4 @@
-package me.jvegaf.tornabox.services;
+package me.jvegaf.tornabox.services.tagger;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import me.jvegaf.tornabox.models.TagDTO;
@@ -17,13 +17,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SpotifyFinder {
+public class SpotifyTagger {
 
     private final ClientCredentialsRequest clientCredentialsRequest;
     private final SpotifyApi spotifyApi;
 
 
-    public SpotifyFinder() {
+    public SpotifyTagger() {
         Dotenv dotenv = Dotenv.load();
         String c_ID = dotenv.get("SPOTIFY_ID");
         String c_S = dotenv.get("SPOTIFY_SECRET");
