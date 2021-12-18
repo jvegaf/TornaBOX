@@ -237,3 +237,11 @@ gradle-app.setting
 .classpath
 
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij+all,windows,linux,macos,gradle,dotenv,visualstudiocode
+
+gradle/wrapper/gradle-wrapper.jar
+
+gradle/wrapper/gradle-wrapper.properties
+
+gradlew
+
+gradlew.bat
