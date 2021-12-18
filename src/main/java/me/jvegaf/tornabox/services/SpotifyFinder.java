@@ -1,16 +1,14 @@
 package me.jvegaf.tornabox.services;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import me.jvegaf.tornabox.models.TagDTO;
 import org.apache.hc.core5.http.ParseException;
 import se.michaelthelin.spotify.SpotifyApi;
-import se.michaelthelin.spotify.enums.ReleaseDatePrecision;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
-import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
+import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Track;
-import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
-import se.michaelthelin.spotify.requests.data.search.SearchItemRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 
 import java.io.IOException;
@@ -26,8 +24,9 @@ public class SpotifyFinder {
 
 
     public SpotifyFinder() {
-        String c_ID = "0a8007ba1df549b783cfe7265678ead8";
-        String c_S = "9387993d8a724a389328cb698ed30ec3";
+        Dotenv dotenv = Dotenv.load();
+        String c_ID = dotenv.get("SPOTIFY_ID");
+        String c_S = dotenv.get("SPOTIFY_SECRET");
         this.spotifyApi = new SpotifyApi.Builder()
                 .setClientId(c_ID)
                 .setClientSecret(c_S)
