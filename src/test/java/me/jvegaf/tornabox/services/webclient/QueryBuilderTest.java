@@ -1,11 +1,8 @@
 package me.jvegaf.tornabox.services.webclient;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class QueryBuilderTest {
 
@@ -13,21 +10,28 @@ class QueryBuilderTest {
 
     @Test
     void tryABuildQueryStringOneString() {
-        var input = new ArrayList<String>();
-        input.add("joeski_un_congo ");
+        String[] input = {"joeski_un_congo "};
 
-        var result = QueryBuilder.build(input);
-        assertEquals(result, "joeski+un+congo");
+
+        var resVO = QueryBuilder.build(input);
+        assertEquals(resVO.Value(), "joeski+un+congo");
     }
 
     @Test
     void tryABuildQueryStringCoupleStrings() {
-        var input = new ArrayList<String>();
-        input.add("joeski " );
-        input.add(" un_congo " );
+        String[] input = {"joeski ", " un_congo " };
 
 
-        var result = QueryBuilder.build(input);
-        assertEquals(result, "joeski+un+congo");
+        var resVO = QueryBuilder.build(input);
+        assertEquals(resVO.Value(), "joeski+un+congo");
+    }
+
+    @Test
+    void tryAnotherBuildQueryStringCoupleStrings() {
+        String[] input = {"deadmau5_1981_Mike_Vale_vs_Jerome_Robins_Remix_" };
+
+
+        var resVO = QueryBuilder.build(input);
+        assertEquals(resVO.Value(), "deadmau5+1981+Mike+Vale+vs+Jerome+Robins+Remix");
     }
 }
