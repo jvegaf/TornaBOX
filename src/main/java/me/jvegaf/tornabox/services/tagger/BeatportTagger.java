@@ -25,7 +25,7 @@ public class BeatportTagger {
         sb.append("/search/tracks?q=");
         var query = QueryBuilder.build(reqArgs);
         sb.append(query.Value());
-
+        System.out.println("query url: " + sb.toString());
         //
 
         try {
