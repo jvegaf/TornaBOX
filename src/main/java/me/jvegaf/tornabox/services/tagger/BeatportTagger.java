@@ -33,12 +33,7 @@ public class BeatportTagger {
             List<DomNode> divs = resultpage.getByXPath("//div[@class='buk-track-meta-parent']");
 
             for (DomNode div: divs) {
-
-                var title = div.querySelectorAll(".buk-track-primary-title").get(0).getFirstChild().toString();
-                var remixed = div.querySelectorAll(".buk-track-remixed").get(0).getFirstChild().toString();
-                List<String> artists = div.querySelector(".buk-track-artists").querySelectorAll("a").stream().map(a -> a.getFirstChild().toString()).collect(Collectors.toList());
-                String link = URI_BASE + div.querySelectorAll("a").get(0).getAttributes().getNamedItem("href").getNodeValue();
-                SearchResult sr = new SearchResult(title, remixed, artists, link);
+                SearchResult sr = makeResult(div);
                 results.add(sr);
             }
 
@@ -49,5 +44,14 @@ public class BeatportTagger {
 
         return results;
 
+    }
+
+    private SearchResult makeResult(DomNode div) {
+        var title = div.querySelectorAll(".buk-track-primary-title").get(0).getFirstChild().toString();
+        var remixed = div.querySelectorAll(".buk-track-remixed").get(0).getFirstChild().toString();
+        List<String> artists = div.querySelector(".buk-track-artists").querySelectorAll("a").stream().map(a -> a.getFirstChild().toString()).collect(Collectors.toList());
+        String link = URI_BASE + div.querySelectorAll("a").get(0).getAttributes().getNamedItem("href").getNodeValue();
+
+        return new SearchResult(title, remixed, artists, link);
     }
 }
