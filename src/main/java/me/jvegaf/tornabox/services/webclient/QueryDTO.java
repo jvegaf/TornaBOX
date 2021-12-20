@@ -8,9 +8,13 @@ public class QueryDTO {
     private final List<String> elements;
     private final String value;
 
-    public QueryDTO(List<String> elements) {
+    private QueryDTO(List<String> elements) {
         this.elements = elements;
         this.value = StringUtils.join(elements.toArray(), "+");
+    }
+
+    public static QueryDTO create(List<String> elements) {
+        return new QueryDTO(elements);
     }
 
     public List<String> Elements() {

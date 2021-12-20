@@ -20,7 +20,6 @@ class BeatportTaggerTest {
         List<SearchResult> results = tagger.search(args);
 
         System.out.println("total results: " + results.size());
-        assertDoesNotThrow(()-> results);
         assertTrue(results.size() > 19);
     }
 
@@ -31,7 +30,13 @@ class BeatportTaggerTest {
         List<SearchResult> results = tagger.search(args);
 
         System.out.println("total results: " + results.size());
-        assertDoesNotThrow(()-> results);
         assertTrue(results.size() > 19);
+    }
+
+    @Test
+    void tryFetchTrackEmbed() {
+        String trackId = "13732823";
+
+        assertDoesNotThrow(()-> tagger.fetchTrackEmbed(trackId));
     }
 }

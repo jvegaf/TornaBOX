@@ -8,7 +8,7 @@ public class QueryBuilder {
     public static QueryDTO build(String[] strArgs) {
         //        joeski+un+congo
         var elements = sanitize(strArgs);
-        return new QueryDTO(elements);
+        return QueryDTO.create(elements);
     }
 
     private static List<String> sanitize(String[] qArgs) {
