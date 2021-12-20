@@ -32,6 +32,7 @@ public class TagService {
     this.file = file;
     try {
       f = (MP3File) AudioFileIO.read(file);
+      System.out.printf("duration: %s%n", f.getMP3AudioHeader().getTrackLengthAsString());
       tag = f.getID3v2Tag();
     } catch (CannotReadException | IOException | TagException | ReadOnlyFileException
             | InvalidAudioFrameException e) {
