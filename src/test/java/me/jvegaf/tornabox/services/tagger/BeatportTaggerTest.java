@@ -35,7 +35,8 @@ class BeatportTaggerTest {
 
     @Test
     void tryFetchTrackEmbed() {
-        String trackId = "13732823";
+//        String trackId = "13732823";
+        String trackId = "15587588";
 
         assertDoesNotThrow(()-> tagger.fetchTrackEmbed(trackId));
     }
