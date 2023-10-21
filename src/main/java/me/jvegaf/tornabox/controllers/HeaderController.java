@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.media.MediaPlayer;
 import me.jvegaf.tornabox.services.PlayerService;
@@ -26,7 +27,7 @@ public class HeaderController implements Initializable {
     @FXML
     private Label titleLabel;
     @FXML
-    private Slider progressBar;
+    private ProgressBar progressBar;
     @FXML
     private Button openFolderBtn;
 
@@ -80,11 +81,9 @@ public class HeaderController implements Initializable {
     }
 
     private void initProgressBar() {
-        this.playerService.currentPlayTimeProperty.addListener((observable, oldValue, newValue) -> this.progressBar.setValue((newValue.toSeconds() / this.trackDuration) * 100));
-        this.progressBar.valueProperty().addListener(observable -> {
-            if (this.progressBar.isValueChanging()){
-                this.playerService.seekTo((this.progressBar.getValue() / 100) * this.trackDuration);
-            }
+        this.playerService.currentPlayTimeProperty.addListener((observable, oldValue, newValue) -> this.progressBar.setProgress((newValue.toSeconds() / this.trackDuration)));
+        this.progressBar.setOnMouseClicked(event -> {
+            this.playerService.seekTo((event.getX() / this.progressBar.getWidth()) * this.trackDuration);
         });
     }
 

@@ -34,7 +34,6 @@ public class MainViewController {
     this.tracklist.injectDeeps(this, this.parent.getLibraryService());
     this.sidebar.injectDeeps(this, this.parent.getLibraryService());
     this.headerController.injectDeeps(this, this.parent.getPlayerService());
-    autoloadTracks();
   }
 
   public void onOpenFolder() {
@@ -47,18 +46,6 @@ public class MainViewController {
   }
 
 
-  private void autoloadTracks() {
-    String pathname = getPath();
-    this.parent.getLibraryService().addTracks(this.parent.getMusicFileService().processMusicFilesOfPath(new File(pathname)));
-  }
-
-  private String getPath() {
-
-    String osname = System.getProperty("os.name");
-    System.out.println(osname);
-    if(osname.toLowerCase().contains("win")) return "C:\\Users\\josev\\Desktop\\CANELITA-PA-COLOCAR";
-    return "/home/jose/Music/CANELITA-PA-COLOCAR";
-  }
 
   public void playTrackAction(Track t) {
     this.parent.getPlayerService().playTrack(t);
