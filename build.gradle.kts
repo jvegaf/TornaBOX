@@ -16,7 +16,7 @@ val appModuleName = "me.jvegaf.tornabox"
 
 val compiler =
     javaToolchains.compilerFor {
-        languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_26.majorVersion))
+        languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_25.majorVersion))
     }
 
 javafx {
@@ -48,7 +48,7 @@ application {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_26.majorVersion))
+        languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_25.majorVersion))
     }
 }
 

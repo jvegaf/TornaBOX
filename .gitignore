@@ -230,13 +230,11 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
-# Eclipse Gradle plugin generated files
 # Eclipse Core
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
-# End of https://www.toptal.com/developers/gitignore/api/java,intellij+all,windows,linux,macos,gradle,dotenv,visualstudiocode
 
 gradle/wrapper/gradle-wrapper.jar
 
@@ -246,4 +244,25 @@ gradlew
 
 gradlew.bat
 .settings
-/.atl
+
+# Devenv
+.devenv*
+devenv.local.nix
+devenv.local.yaml
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
+
+# Devenv
+.devenv*
+devenv.local.nix
+devenv.local.yaml
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
