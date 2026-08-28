@@ -1,8 +1,5 @@
 {
   pkgs,
-  lib,
-  config,
-  inputs,
   ...
 }:
 
@@ -24,10 +21,10 @@
       };
       lsp.enable = true;
     };
-    kotlin = {
-      enable = true;
-      lsp.enable = true;
-    };
+    # kotlin = {
+    #   enable = true;
+    #   lsp.enable = true;
+    # };
   };
 
   # https://devenv.sh/processes/
