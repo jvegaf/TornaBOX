@@ -11,12 +11,14 @@ import javafx.stage.Stage;
 import me.jvegaf.tornabox.App;
 import me.jvegaf.tornabox.components.SideBar;
 import me.jvegaf.tornabox.components.Tracklist;
+import lombok.extern.slf4j.Slf4j;
 import me.jvegaf.tornabox.models.Track;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+@Slf4j
 public class MainViewController {
 
   private App parent;
@@ -40,7 +42,7 @@ public class MainViewController {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     File selectedFolder = directoryChooser.showDialog(this.leftStatusLabel.getScene().getWindow());
     if (selectedFolder == null) return;
-    System.out.println(selectedFolder.getAbsolutePath());
+    log.info("Opening folder: {}", selectedFolder.getAbsolutePath());
     ArrayList<Track> tracks = this.parent.getMusicFileService().processMusicFilesOfPath(selectedFolder);
     this.parent.getLibraryService().addTracks(tracks);
   }
@@ -60,7 +62,7 @@ public class MainViewController {
     try {
       root = loader.load();
     } catch (IOException e) {
-      e.printStackTrace();
+      log.error("Error loading detail view", e);
     }
     if (root == null) return;
     Scene detailScene = new Scene(root, 563, 512);

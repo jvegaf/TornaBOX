@@ -1,6 +1,7 @@
 package me.jvegaf.tornabox.services.tagger;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import lombok.extern.slf4j.Slf4j;
 import me.jvegaf.tornabox.models.TagDTO;
 import org.apache.hc.core5.http.ParseException;
 import se.michaelthelin.spotify.SpotifyApi;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 public class SpotifyTagger {
 
     private final ClientCredentialsRequest clientCredentialsRequest;
@@ -41,11 +43,11 @@ public class SpotifyTagger {
             ClientCredentials clientCredentials = clientCredentialsRequest.execute();
 
             // Set access token for further "spotifyApi" object usage
-            System.out.println("Expires in: " + clientCredentials.getExpiresIn());
+            log.info("Expires in: {}", clientCredentials.getExpiresIn());
             this.spotifyApi.setAccessToken(clientCredentials.getAccessToken());
 
         } catch (IOException | SpotifyWebApiException | ParseException e) {
-            System.out.println("Error: " + e.getMessage());
+            log.error("Error fetching client credentials", e);
         }
     }
 
@@ -55,10 +57,10 @@ public class SpotifyTagger {
         try {
             Paging<Track> trackPaging = req.execute();
 
-            System.out.println("Total tracks founded: " + trackPaging.getTotal());
+            log.info("Total tracks founded: {}", trackPaging.getTotal());
             return makeTags(trackPaging.getItems());
         } catch (IOException | SpotifyWebApiException | ParseException e) {
-            System.out.println("Error: " + e.getMessage());
+            log.error("Error searching tracks", e);
         }
         return null;
     }

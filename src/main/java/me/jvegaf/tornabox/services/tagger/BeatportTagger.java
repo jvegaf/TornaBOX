@@ -1,7 +1,6 @@
 package me.jvegaf.tornabox.services.tagger;
 
 import com.gargoylesoftware.htmlunit.HttpMethod;
-import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.WebResponse;
@@ -13,7 +12,8 @@ import se.michaelthelin.spotify.model_objects.specification.Image;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 
 /**
  * Beatport metadata tagger.
- *
  * Follows the modern approach used by onetagger (see crates/onetagger-platforms/src/beatport.rs):
  * <ul>
  *   <li>OAuth client-credentials token from {@code account.beatport.com/o/token/}.</li>
@@ -94,7 +93,7 @@ public class BeatportTagger {
     private String fetchBearer(String url) {
         String token = updateToken();
         try {
-            WebRequest request = new WebRequest(new URL(url), HttpMethod.GET);
+            WebRequest request = new WebRequest(URI.create(url).toURL(), HttpMethod.GET);
             request.setAdditionalHeader("Authorization", "Bearer " + token);
             WebResponse response = this.client.getPage(request).getWebResponse();
             int status = response.getStatusCode();
@@ -116,7 +115,7 @@ public class BeatportTagger {
             String body = "client_id=" + TOKEN_CLIENT_ID
                     + "&client_secret=" + TOKEN_CLIENT_SECRET
                     + "&grant_type=client_credentials";
-            WebRequest request = new WebRequest(new URL(URI_TOKEN), HttpMethod.POST);
+            WebRequest request = new WebRequest(URI.create(URI_TOKEN).toURL(), HttpMethod.POST);
             request.setAdditionalHeader("Content-Type", "application/x-www-form-urlencoded");
             request.setRequestBody(body);
             response = this.client.getPage(request).getWebResponse();
@@ -234,11 +233,7 @@ public class BeatportTagger {
     }
 
     static String urlEncode(String value) {
-        try {
-            return java.net.URLEncoder.encode(value, "UTF-8");
-        } catch (java.io.UnsupportedEncodingException e) {
-            throw new IllegalStateException(e);
-        }
+        return java.net.URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 
     // ---------------------------------------------------------------------

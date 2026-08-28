@@ -7,11 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.media.MediaPlayer;
+import lombok.extern.slf4j.Slf4j;
 import me.jvegaf.tornabox.services.PlayerService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+@Slf4j
 public class HeaderController implements Initializable {
 
     @FXML
@@ -60,10 +62,10 @@ public class HeaderController implements Initializable {
     }
 
     private void initActionBtns() {
-        nextBtn.setOnMouseClicked(event -> System.out.println("next clicked !"));
+        nextBtn.setOnMouseClicked(event -> log.info("next clicked"));
         playBtn.setOnMouseClicked(event -> this.playerService.continuePlaying());
         pauseBtn.setOnMouseClicked(event -> this.playerService.pauseTrack());
-        prevBtn.setOnMouseClicked(event -> System.out.println("previous clicked !"));
+        prevBtn.setOnMouseClicked(event -> log.info("previous clicked"));
         openFolderBtn.setOnMouseClicked(event -> this.mainViewController.onOpenFolder());
     }
 
@@ -90,7 +92,7 @@ public class HeaderController implements Initializable {
     private void playerStatusHandler(MediaPlayer.Status status){
         switch (status){
             case UNKNOWN:
-                System.out.println("UNKNOWN STATE");
+                log.info("UNKNOWN STATE");
                 disablePlayerControls( true);
                 break;
             case READY:

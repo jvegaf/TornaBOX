@@ -1,6 +1,7 @@
 package me.jvegaf.tornabox.services;
 
 import me.jvegaf.tornabox.models.Track;
+import lombok.extern.slf4j.Slf4j;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.time.Year;
 import java.util.List;
 
+@Slf4j
 public class TagService {
 
   private File file;
@@ -32,11 +34,11 @@ public class TagService {
     this.file = file;
     try {
       f = (MP3File) AudioFileIO.read(file);
-      System.out.printf("duration: %s%n", f.getMP3AudioHeader().getTrackLengthAsString());
+      log.info("duration: {}", f.getMP3AudioHeader().getTrackLengthAsString());
       tag = f.getID3v2Tag();
     } catch (CannotReadException | IOException | TagException | ReadOnlyFileException
             | InvalidAudioFrameException e) {
-      e.printStackTrace();
+      log.error("Error reading audio file {}", file, e);
     }
     return generateTrack();
   }
@@ -123,7 +125,7 @@ public class TagService {
       f.commit();
 
     } catch (CannotReadException | IOException | InvalidAudioFrameException | ReadOnlyFileException | TagException | CannotWriteException e) {
-      e.printStackTrace();
+      log.error("Error saving tags for {}", track.getPath(), e);
     }
   }
 

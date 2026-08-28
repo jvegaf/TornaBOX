@@ -1,6 +1,7 @@
 package me.jvegaf.tornabox.services.tagger;
 
 import me.jvegaf.tornabox.models.TagDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import se.michaelthelin.spotify.model_objects.specification.Image;
@@ -11,10 +12,9 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
+@Slf4j
 class BeatportTaggerTest {
 
     // ---------------------------------------------------------------------
@@ -55,7 +55,7 @@ class BeatportTaggerTest {
     void noArtForInvalidPlaceholderUuid() {
         String invalid = "https://geo-media.beatport.com/image_size/{w}x{h}/"
                 + BeatportTagger.INVALID_ART + ".jpg";
-        assertEquals(null, BeatportTagger.resolveArtUrl(invalid, 500));
+        assertNull(BeatportTagger.resolveArtUrl(invalid, 500));
     }
 
     @Test
@@ -80,7 +80,7 @@ class BeatportTaggerTest {
         String json = "{ \"tracks\": [ " + fixture("response.json") + " ] }";
         List<TagDTO> results = BeatportTagger.mapSearchResponse(json);
         assertEquals(1, results.size());
-        assertEquals("Un Congo (Extended Mix)", results.get(0).getTitle());
+        assertEquals("Un Congo (Extended Mix)", results.getFirst().getTitle());
     }
 
     @Test
@@ -94,7 +94,7 @@ class BeatportTaggerTest {
     void normalizesMajorAndMinorKeys() {
         assertEquals("A", BeatportTagger.normalizeKey(generic("A Major")));
         assertEquals("F#m", BeatportTagger.normalizeKey(generic("F# Minor")));
-        assertEquals(null, BeatportTagger.normalizeKey(null));
+        assertNull(BeatportTagger.normalizeKey(null));
     }
 
     @Test
@@ -127,8 +127,8 @@ class BeatportTaggerTest {
 
         List<TagDTO> results = tagger.search(new String[]{"joeski", "un congo"});
 
-        System.out.println("total results: " + results.size());
-        assertTrue(results.size() > 0);
+        log.info("total results: {}", results.size());
+        assertFalse(results.isEmpty());
     }
 
     @Test
@@ -140,8 +140,8 @@ class BeatportTaggerTest {
 
         List<TagDTO> results = tagger.search(new String[]{"deadmau5_1981_Mike_Vale_vs_Jerome_Robins_Remix_"});
 
-        System.out.println("total results: " + results.size());
-        assertTrue(results.size() >= 0);
+        log.info("total results: {}", results.size());
+        assertFalse(results.isEmpty());
     }
 
     @Test
@@ -155,7 +155,7 @@ class BeatportTaggerTest {
 
         assertTrue(result.isPresent());
         TagDTO dto = result.get();
-        System.out.println("track: " + dto);
-        assertTrue(dto.getBpm() != null);
+        log.info("track: {}", dto);
+        assertNotNull(dto.getBpm());
     }
 }

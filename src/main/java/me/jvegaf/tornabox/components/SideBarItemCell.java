@@ -5,10 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
+import lombok.extern.slf4j.Slf4j;
 import me.jvegaf.tornabox.models.CellItem;
 
 import java.io.IOException;
 
+@Slf4j
 public class SideBarItemCell extends ListCell<CellItem> {
 
 
@@ -38,8 +40,7 @@ public class SideBarItemCell extends ListCell<CellItem> {
                     this.mLLoader.load();
                     this.itemTitle.setText(item.getItemTitle());
                 } catch (IOException e) {
-                    System.out.println("error en itemCell");
-                    e.printStackTrace();
+                    log.error("Error loading SideBarItem.fxml", e);
                 }
             }
         }
