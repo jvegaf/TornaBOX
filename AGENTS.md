@@ -4,10 +4,13 @@ JavaFX 26 desktop app for managing/editing MP3 metadata (a DJ track library mana
 
 ## Commands
 - **No Gradle wrapper** — `gradlew` does not exist and is gitignored. Use `gradle` (Gradle 9, provided by devenv via `.envrc`).
+- A `justfile` wraps the common recipes (run/test/build/package/clean/env-setup); see `just --list`. Requires `just` on PATH (pure convenience — everything below also runs directly via `gradle`).
 - `gradle run` — launch the app. Must run from repo root (see env note).
-- `gradle test` — runs tests (JUnit 5).
+- `gradle test` — runs tests (JUnit 5). Fully **offline**.
+- `TORNABOX_LIVE_TESTS=true gradle test --tests '...BeatportTaggerTest'` — also runs live Beatport integration tests (hits the real API). Equivalently `just test-live`.
 - `gradle build` — compile.
 - `gradle package` — custom jpackage task producing a native installer (currently named the placeholder `fxBuildDemo`).
+- `gradle clean` — clean build artifacts.
 
 ## Environment secrets
 - `SpotifyTagger`'s constructor calls `Dotenv.load()`, which reads `.env` from the **working directory**. It needs `SPOTIFY_ID` and `SPOTIFY_SECRET` or it fails with an uncaught exception at startup.
@@ -25,16 +28,15 @@ JavaFX 26 desktop app for managing/editing MP3 metadata (a DJ track library mana
 ## Taggers
 - `services/tagger/`:
   - `SpotifyTagger` — official Spotify API using env credentials. `.env` required.
-  - `BeatportTagger` — htmlunit scraping of beatport.com plus an unofficial `embed.beatport.com/token` endpoint. Fragile and subject to breaking when markup changes.
+  - `BeatportTagger` — official Beatport v4 catalog API (OAuth client-credentials token from `account.beatport.com/o/token/`, search via `/v4/catalog/search?type=tracks`, track via `/v4/catalog/tracks/{id}`). No `.env` needed (creds are hardcoded). JSON parsing/mapping is kept static for offline testing against `doc/response*.json` fixtures.
   - `Tagger.java` is an **empty placeholder class**, not an abstraction/interface. Don't rely on it.
-- Search-result flow targets `TagDTO` / `SearchResult` DTOs under the same package.
+- Search results are mapped into `TagDTO` (with a `BeatportTrack` Gson model under the same package). Note `TagDTO.getImages()` is currently unread by the views — the detail view shows artwork read from the local MP3 via `Track.getArtworkData()`.
 
 ## Known landmines (don't assume they're real features)
 - `jMusixMatch` is declared in `build.gradle.kts` but never used.
-- `BeatportTagger.fetchTrackEmbed` only prints JSON to stdout — WIP, not a functional feature yet.
 - Multiple CSS themes under `resources/styles/` are unused; only `dark.css` is loaded (`App.java`).
 - `src/test/java/me/jvegaf/tornabox/services/SpotifyTaggerTest.java.bak` is stale backup, not a live test.
 
 ## Notes
 - CSSFX hot-reloads CSS during `gradle run` (started in `App.start`), so CSS edits apply live in dev.
-- `README.md` is currently empty. There is no CI, formatter, or linter config.
+- There is no CI, formatter, or linter config.
