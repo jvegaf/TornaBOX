@@ -12,6 +12,24 @@
     pkgs.git
     pkgs.just
   ];
+
+  # JavaFX native libraries (glassgtk3/prism_es2) are dlopen'd from
+  # ~/.openjfx/cache without RPATH, so they must be reachable via
+  # LD_LIBRARY_PATH on NixOS.
+  env.LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
+    pkgs.gtk3
+    pkgs.glib
+    pkgs.pango
+    pkgs.atk
+    pkgs.cairo
+    pkgs.gdk-pixbuf
+    pkgs.xorg.libXtst
+    pkgs.xorg.libX11
+    pkgs.xorg.libXxf86vm
+    pkgs.libGL
+    pkgs.fontconfig
+    pkgs.freetype
+  ];
   delta.enable = true;
 
   languages = {

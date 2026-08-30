@@ -32,7 +32,3 @@ package:
 # Clean build artifacts
 clean:
     gradle clean
-
-# Copy .env_example to .env (required for Spotify credentials)
-env-setup:
-    test -f .env || cp .env_example .env

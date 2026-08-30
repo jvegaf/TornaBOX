@@ -1,10 +1,10 @@
 package me.jvegaf.tornabox.services.tagger;
 
+import me.jvegaf.tornabox.models.Image;
 import me.jvegaf.tornabox.models.TagDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
-import se.michaelthelin.spotify.model_objects.specification.Image;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import me.jvegaf.tornabox.models.TagDTO;
 import me.jvegaf.tornabox.services.webclient.Client;
 import me.jvegaf.tornabox.services.webclient.QueryBuilder;
-import se.michaelthelin.spotify.model_objects.specification.Image;
+import me.jvegaf.tornabox.models.Image;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -195,7 +195,7 @@ public class BeatportTagger {
                 || t.release.image.dynamicUri == null) return new Image[0];
         String uri = resolveArtUrl(t.release.image.dynamicUri, ART_RESOLUTION);
         if (uri == null) return new Image[0];
-        Image image = new Image.Builder().setUrl(uri).build();
+        Image image = new Image(uri);
         return new Image[]{image};
     }
 

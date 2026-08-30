@@ -1,7 +1,5 @@
 package me.jvegaf.tornabox.models;
 
-import se.michaelthelin.spotify.model_objects.specification.Image;
-
 import java.time.Year;
 import java.util.Arrays;
 

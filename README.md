@@ -8,7 +8,6 @@ library manager. Built with JDK 25 and Gradle (Kotlin DSL).
 - Browse and manage your in-memory track library (JavaFX `ObservableList`)
 - View and edit MP3 tags (artist, title, album, genre, year, BPM, key, artwork)
 - Tag tracks from online sources:
-  - **Spotify** (official API; needs `.env` credentials)
   - **Beatport** (official v4 catalog API; no credentials required)
 
 ## Requirements
@@ -21,11 +20,15 @@ library manager. Built with JDK 25 and Gradle (Kotlin DSL).
 
 ```sh
 direnv allow                 # activate the devenv shell (Gradle 9, JDK 25)
-cp .env_example .env         # set SPOTIFY_ID / SPOTIFY_SECRET (or: just env-setup)
 ```
 
-There is no Gradle wrapper; use `gradle` from the devenv shell, and run commands
-from the repo root so `.env` is found.
+There is no Gradle wrapper; use `gradle` from the devenv shell, run from the repo
+root.
+
+On NixOS the devenv shell also exports `LD_LIBRARY_PATH` (see `devenv.nix`) so
+that JavaFX's extracted native libraries can find the system GTK/GL/font libs.
+Run the app from inside the shell (`direnv allow`), not with a bare `gradle`
+outside it.
 
 ## Commands
 
@@ -37,7 +40,6 @@ from the repo root so `.env` is found.
 | Compile           | `just build`    | `gradle build`                                    |
 | Native installer  | `just package`  | `gradle package` (jpackage → `fxBuildDemo`)       |
 | Clean             | `just clean`    | `gradle clean`                                    |
-| Copy `.env`       | `just env-setup`| —                                                 |
 
 `gradle test` is fully offline. The live Beatport integration tests are gated
 behind `TORNABOX_LIVE_TESTS=true` because they hit the real API.

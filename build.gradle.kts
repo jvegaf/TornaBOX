@@ -10,7 +10,7 @@ repositories {
     mavenCentral()
 }
 
-val javaFXVersion = "26.0.2"
+val javaFXVersion = "25.0.4"
 val appClassName = "me.jvegaf.tornabox.App"
 val appModuleName = "me.jvegaf.tornabox"
 
@@ -29,12 +29,10 @@ tasks.test {
 }
 
 dependencies {
-    implementation("io.github.cdimascio:dotenv-java:3.0.0")
     implementation("net.sourceforge.htmlunit:htmlunit:2.70.0")
     implementation("org:jaudiotagger:2.0.3")
     implementation("com.sachinhandiekar:jMusixMatch:1.1.4")
     implementation("fr.brouillard.oss:cssfx:11.5.1")
-    implementation("se.michaelthelin.spotify:spotify-web-api-java:8.0.0")
     implementation("org.slf4j:slf4j-api:2.0.13")
     implementation("org.slf4j:slf4j-simple:2.0.13")
     compileOnly("org.projectlombok:lombok:1.18.38")
@@ -49,6 +47,8 @@ dependencies {
 
 application {
     mainClass.set(appClassName)
+    // Silence the restricted-method warning printed by JavaFX 25+ native loading.
+    applicationDefaultJvmArgs = listOf("--enable-native-access=javafx.graphics")
 }
 
 java {
